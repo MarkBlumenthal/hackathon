@@ -3,9 +3,6 @@ from tkinter import messagebox, simpledialog
 from PIL import Image, ImageTk
 from datetime import datetime
 import psycopg2
-import random
-
-
 
 class FightAntiSemitisimGame:
     def __init__(self, window):
@@ -17,6 +14,7 @@ class FightAntiSemitisimGame:
 
         self.start_time = None
         self.end_time = None
+        self.question_index = 0  # Initialize question index
 
         self.welcome_label = tk.Label(window, text="Welcome To Fight Anti-Semitisim!")
         self.welcome_label.pack()
@@ -39,7 +37,11 @@ class FightAntiSemitisimGame:
         self.output_text = tk.Text(self.game_frame, width=60, height=20)
         self.output_text.pack()
 
-        self.actions = [("educate person", self.educate_person), ("ignore person", self.ignore_person), ("respond with violence", self.respond_with_violence)]
+        self.actions = [
+            ("educate person", self.educate_person), 
+            ("ignore person", self.ignore_person), 
+            ("respond with violence", self.respond_with_violence)
+        ]
 
         for text, command in self.actions:
             button = tk.Button(self.game_frame, text=text, command=command)
@@ -55,12 +57,15 @@ class FightAntiSemitisimGame:
 
     def educate_person(self):
         self.output_text.insert(tk.END, "You educate the person.\n")
+        self.get_question()  # Call get_question to display the next question
 
     def ignore_person(self):
         self.output_text.insert(tk.END, "You ignore the person and walk away!\n")
+        self.get_question()  # Call get_question to display the next question
 
     def respond_with_violence(self):
         self.output_text.insert(tk.END, "You punch the person in the face\n")
+        self.get_question()  # Call get_question to display the next question
 
     def start_game(self):
         self.start_time = datetime.now()
@@ -82,21 +87,19 @@ class FightAntiSemitisimGame:
         character_frame.pack()
 
         for image_path, character_name in characters:
-            # Load character image
             character_image = Image.open(image_path).resize((100, 100))
             character_photo = ImageTk.PhotoImage(character_image)
-            # Pass character_name to the command using a lambda function to avoid late binding issues
             character_button = tk.Button(character_frame, image=character_photo, command=lambda name=character_name: self.select_character(name))
-            character_button.photo = character_photo  # Keep a reference to avoid garbage collection
+            character_button.photo = character_photo
             character_button.pack(side=tk.LEFT, padx=10)
 
     def select_character(self, character):
         player_name = self.ask_for_name()
-        if player_name:  # Check if the player provided a name
+        if player_name:
             self.insert_player_data(player_name, character)
-            self.output_text.delete('1.0', tk.END)  # Clear the text box
+            self.output_text.delete('1.0', tk.END)
             self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
-            self.get_question()  # Proceed to get and display a question
+            self.get_question()  # Start the game with the first question
 
     def insert_player_data(self, player_name, character_name):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -109,12 +112,19 @@ class FightAntiSemitisimGame:
 
     def get_question(self):
         questions = [
-            "What year was the State of Israel established?",
-            "Name one Jewish holiday and its significance.",
-            "Who was Theodor Herzl?"
+            "You encounter a person spreading harmful stereotypes. They are saying that Israel only wants to go into Gaza for money! What do you do?",
+            "The next person says that Jews should go back to Europe! What do you do?",
+            "The next person is shouting with a sign 'Free Free Palestine'! What do you do?"
         ]
-        selected_question = random.choice(questions)
+        if self.question_index >= len(questions):
+            # If all questions have been asked, show a game over message and reset
+            messagebox.showinfo("Game Over", "You've responded to all scenarios!")
+            self.question_index = 0  # Reset question index if you want to restart the cycle
+            return
+
+        selected_question = questions[self.question_index % len(questions)]
         self.display_question(selected_question)
+        self.question_index += 1
 
     def display_question(self, question):
         self.output_text.delete('1.0', tk.END)
@@ -131,12 +141,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
 
