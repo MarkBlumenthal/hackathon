@@ -34,7 +34,7 @@ class FightAntiSemitisimGame:
         self.game_frame = tk.Frame(window)
         self.game_frame.pack(pady=20)
 
-        self.output_text = tk.Text(self.game_frame, width=60, height=20)
+        self.output_text = tk.Text(self.game_frame, width=140, height=20)
         self.output_text.pack()
 
         self.actions = [
