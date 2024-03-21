@@ -1,0 +1,33 @@
+[
+    {
+        "text": "You encounter a person spreading harmful stereotypes. What do you do?",
+        "choices": [
+            {
+                "text": "Educate them on why their views are harmful",
+                "action": "educate_person"
+            },
+            {
+                "text": "Ignore them and walk away",
+                "action": "ignore_person"
+            },
+            {
+                "text": "Report them to a community leader",
+                "action": "report_person"
+            }
+        ]
+    },
+    {
+        "text": "After educating the person, they seem to understand your point. What do you do next?",
+        "choices": [
+            {
+                "text": "Invite them to a community dialogue session",
+                "action": "invite_dialogue"
+            },
+            {
+                "text": "Thank them for their understanding and leave",
+                "action": "thank_leave"
+            }
+        ]
+    }
+   
+]
