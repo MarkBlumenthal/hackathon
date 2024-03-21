@@ -3,6 +3,7 @@ from tkinter import messagebox, simpledialog
 from PIL import Image, ImageTk
 from datetime import datetime
 import psycopg2
+# import json
 
 #****************************************************************************************************#
 
@@ -65,10 +66,9 @@ class FightAntiSemitisimGame:
 
         # Define actions player can take
         self.actions = [
-            ("Duck, Dive & Roll", self.duck_dive_roll),
-            ("Decapitate Enemy", self.decapitate_enemy),
-            ("Jump High", self.jump_high),
-            ("Breathing Technique", self.breathing_technique)
+            ("educate person", self.educate_person),
+            ("ignore person", self.ignore_person),
+            ("respond with violence", self.respond_with_violence),
         ]
 
         # Create buttons for each action
@@ -92,17 +92,17 @@ class FightAntiSemitisimGame:
 #*****************************************************************************************************#           
 
     # Perform actions
-    def duck_dive_roll(self):
-        self.output_text.insert(tk.END, "You perform a duck, dive, and roll maneuver.\n")
+    def educate_person(self):
+        self.output_text.insert(tk.END, "You educate the person.\n")
 
-    def decapitate_enemy(self):
-        self.output_text.insert(tk.END, "You decapitate the Demon using your Katanna!\n")
+    def ignore_person(self):
+        self.output_text.insert(tk.END, "You ignore the person and walk away!\n")
 
-    def jump_high(self):
-        self.output_text.insert(tk.END, "You jump 20 feet in the air!\n")
+    def respond_with_violence(self):
+        self.output_text.insert(tk.END, "You punch the person in the face\n")
 
-    def breathing_technique(self):
-        self.output_text.insert(tk.END, "You use breathing technique to increase power!\n")
+        
+
 
 #*****************************************************************************************************#
         
@@ -188,6 +188,8 @@ def main():
 # Check if the script is being run directly
 if __name__ == "__main__":
     main()
+
+
 
 
 

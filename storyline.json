@@ -1,9 +1,9 @@
 [
     {
-        "text": "You encounter a person spreading harmful stereotypes. What do you do?",
+        "text": "You encounter a person spreading harmful stereotypes. They are saying that Israel only wants to go into Gaza for money! What do you do?",
         "choices": [
             {
-                "text": "Educate them on why their views are harmful",
+                "text": "Explain that this is a stereotype, Israeli's are going into Gaza to protect themselves",
                 "action": "educate_person"
             },
             {
@@ -11,21 +11,44 @@
                 "action": "ignore_person"
             },
             {
-                "text": "Report them to a community leader",
-                "action": "report_person"
+                "text": "Punch them in the face",
+                "action": "respond with violence"
             }
         ]
     },
+
     {
-        "text": "After educating the person, they seem to understand your point. What do you do next?",
+        "text": "The next person says that Jews should go back to Europe! What do you do?",
         "choices": [
             {
-                "text": "Invite them to a community dialogue session",
-                "action": "invite_dialogue"
+                "text": "Explain that Israel is the Jewsih homeland. Jews are indigenous to the land of Israel",
+                "action": "educate_person"
             },
             {
-                "text": "Thank them for their understanding and leave",
-                "action": "thank_leave"
+                "text": "Ignore them and walk away",
+                "action": "ignore_person"
+            },
+            {
+                "text": "Kick them in the balls",
+                "action": "respond with violence"
+            }
+        ]
+    },
+
+    {
+        "text": "The next person is shouting with a sign 'Free Free Palestine'! What do you do?",
+        "choices": [
+            {
+                "text": "Explain that Palestine is not a country. It is called Israel and it is free. People live happily together from all walks of life enjoying all the same opertunities and privliges",
+                "action": "educate_person"
+            },
+            {
+                "text": "Ignore them and walk away",
+                "action": "ignore_person"
+            },
+            {
+                "text": "Take their sign away",
+                "action": "respond with violence"
             }
         ]
     }
