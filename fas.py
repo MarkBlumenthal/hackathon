@@ -118,7 +118,7 @@
 #         ]
 #         if self.question_index >= len(questions):
 #             # If all questions have been asked, show a game over message and reset
-#             messagebox.showinfo("Game Over", "You've responded to all scenarios!")
+#             messagebox.showinfo("Game Over", "You've responded to all scenarios! Would you like to play again?")
 #             self.question_index = 0  # Reset question index if you want to restart the cycle
 #             return
 
@@ -140,4 +140,12 @@
 
 # if __name__ == "__main__":
 #     main()
+
+
+
+
+
+
+
+
 
