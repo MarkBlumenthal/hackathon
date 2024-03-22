@@ -22,13 +22,16 @@
 #         self.output_text.insert(tk.END, "You punch the person in the face\n")
 #         self.points += 0  # No points for violence
 #         self.update_points_display()  # Update the points display
-#         self.get_question()
+#         self.get_question()  
 
 #     def update_points_display(self):
 #         # Method to update the points display. This can be adjusted based on how you want to show points.
 #         self.output_text.insert(tk.END, f"Current Points: {self.points}\n")
 
 #     def __init__(self, window):
+
+#         self.points = 0 
+
 #         self.window = window
 #         self.window.title("Welcome to Fight Anti-Semitisim")
 
@@ -78,18 +81,6 @@
 #             self.window.destroy()
 #             self.close_connection()
 
-#     def educate_person(self):
-#         self.output_text.insert(tk.END, "You educate the person.\n")
-#         self.get_question()  # Call get_question to display the next question
-
-#     def ignore_person(self):
-#         self.output_text.insert(tk.END, "You ignore the person and walk away!\n")
-#         self.get_question()  # Call get_question to display the next question
-
-#     def respond_with_violence(self):
-#         self.output_text.insert(tk.END, "You punch the person in the face\n")
-#         self.get_question()  # Call get_question to display the next question
-
 #     def start_game(self):
 #         self.start_time = datetime.now()
 #         messagebox.showinfo("Game Started", "Let the educating begin!")
@@ -119,15 +110,15 @@
 #     def select_character(self, character):
 #         player_name = self.ask_for_name()
 #         if player_name:
-#             self.insert_player_data(player_name, character)
+#             self.insert_player_data(player_name, character, self.points)
 #             self.output_text.delete('1.0', tk.END)
 #             self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
 #             self.get_question()  # Start the game with the first question
 
-#     def insert_player_data(self, player_name, character_name):
+#     def insert_player_data(self, player_name, character_name, points):
 #         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-#         sql = "INSERT INTO player_data (player_name, character_name, play_time) VALUES (%s, %s, %s)"
-#         self.cur.execute(sql, (player_name, character_name, timestamp))
+#         sql = "INSERT INTO player_data (player_name, character_name, play_time, points) VALUES (%s, %s, %s, %s)"
+#         self.cur.execute(sql, (player_name, character_name, timestamp, points))
 #         self.conn.commit()
 
 #     def ask_for_name(self):
@@ -261,6 +252,7 @@ class FightAntiSemitisimGame:
             self.close_connection()
 
     def start_game(self):
+        self.points = 0
         self.start_time = datetime.now()
         messagebox.showinfo("Game Started", "Let the educating begin!")
         self.welcome_label.pack_forget()
@@ -333,4 +325,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
