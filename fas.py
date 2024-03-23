@@ -1,9 +1,9 @@
-
 # import tkinter as tk
 # from tkinter import messagebox, simpledialog
 # from PIL import Image, ImageTk
 # from datetime import datetime
 # import psycopg2
+# import json
 
 
 
@@ -14,21 +14,24 @@
 # class FightAntiSemitisimGame:
 
 #     def educate_person(self):
-#         self.output_text.insert(tk.END, "You educate the person.\n")
+#         outcome = self.current_actions['educate person']
+#         self.output_text.insert(tk.END, outcome + "\n")
 #         self.points += 10  # Add points for educating
 #         self.update_points_display()  # Update the points display
 #         self.update_player_points(self.points, self.player_name)
 #         self.get_question()
 
 #     def ignore_person(self):
-#         self.output_text.insert(tk.END, "You ignore the person and walk away!\n")
+#         outcome = self.current_actions['ignore person']
+#         self.output_text.insert(tk.END, outcome + "\n")
 #         self.points += 5  # Add points for ignoring
 #         self.update_points_display()  # Update the points display
 #         self.update_player_points(self.points, self.player_name)
 #         self.get_question()
 
 #     def respond_with_violence(self):
-#         self.output_text.insert(tk.END, "You punch the person in the face\n")
+#         outcome = self.current_actions['respond with violence']
+#         self.output_text.insert(tk.END, outcome + "\n")
 #         self.points += 0  # No points for violence
 #         self.update_points_display()  # Update the points display
 #         self.update_player_points(self.points, self.player_name)
@@ -175,21 +178,26 @@
 
 
 #     def get_question(self):
-#         questions = [
-#             "You encounter a person spreading harmful stereotypes. They are saying that Israel only wants to go into Gaza for money! What do you do?",
-#             "The next person says that Jews should go back to Europe! What do you do?",
-#             "The next person is shouting with a sign 'Free Free Palestine'! What do you do?"
-#         ]
+       
+#        with open('questions.json', 'r') as file:
+#         data = json.load(file)
+#         questions = data["questions"]
+
+#         print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
+        
 #         if self.question_index >= len(questions):
 #             self.show_final_score()
 #             # If all questions have been asked, show a game over message and reset
 #             messagebox.showinfo("Game Over", "You've responded to all scenarios! Would you like to play again? If you do then select a new character!")
-#             self.question_index = 0  # Reset question index if you want to restart the cycle
+#             self.question_index = 0
+#             print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line  # Reset question index if you want to restart the cycle
 #             return
-
-#         selected_question = questions[self.question_index % len(questions)]
+        
+#         self.current_actions = questions[self.question_index]["actions"]
+#         selected_question = questions[self.question_index]["text"]
 #         self.display_question(selected_question)
 #         self.question_index += 1
+#         print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
 
 #     def display_question(self, question):
 #         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
@@ -238,11 +246,24 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 from PIL import Image, ImageTk
 from datetime import datetime
 import psycopg2
+import json
 
 
 
@@ -253,21 +274,24 @@ import psycopg2
 class FightAntiSemitisimGame:
 
     def educate_person(self):
-        self.output_text.insert(tk.END, "You educate the person.\n")
+        outcome = self.current_actions['educate person']
+        self.output_text.insert(tk.END, outcome + "\n")
         self.points += 10  # Add points for educating
         self.update_points_display()  # Update the points display
         self.update_player_points(self.points, self.player_name)
         self.get_question()
 
     def ignore_person(self):
-        self.output_text.insert(tk.END, "You ignore the person and walk away!\n")
+        outcome = self.current_actions['ignore person']
+        self.output_text.insert(tk.END, outcome + "\n")
         self.points += 5  # Add points for ignoring
         self.update_points_display()  # Update the points display
         self.update_player_points(self.points, self.player_name)
         self.get_question()
 
     def respond_with_violence(self):
-        self.output_text.insert(tk.END, "You punch the person in the face\n")
+        outcome = self.current_actions['respond with violence']
+        self.output_text.insert(tk.END, outcome + "\n")
         self.points += 0  # No points for violence
         self.update_points_display()  # Update the points display
         self.update_player_points(self.points, self.player_name)
@@ -414,21 +438,26 @@ class FightAntiSemitisimGame:
 
 
     def get_question(self):
-        questions = [
-            "You encounter a person spreading harmful stereotypes. They are saying that Israel only wants to go into Gaza for money! What do you do?",
-            "The next person says that Jews should go back to Europe! What do you do?",
-            "The next person is shouting with a sign 'Free Free Palestine'! What do you do?"
-        ]
+       
+       with open('questions.json', 'r') as file:
+        data = json.load(file)
+        questions = data["questions"]
+
+        print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
+        
         if self.question_index >= len(questions):
             self.show_final_score()
             # If all questions have been asked, show a game over message and reset
             messagebox.showinfo("Game Over", "You've responded to all scenarios! Would you like to play again? If you do then select a new character!")
-            self.question_index = 0  # Reset question index if you want to restart the cycle
+            self.question_index = 0
+            print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line  # Reset question index if you want to restart the cycle
             return
-
-        selected_question = questions[self.question_index % len(questions)]
+        
+        self.current_actions = questions[self.question_index]["actions"]
+        selected_question = questions[self.question_index]["text"]
         self.display_question(selected_question)
         self.question_index += 1
+        print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
 
     def display_question(self, question):
         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
