@@ -20,7 +20,7 @@
 
 
 -- #selects the entire table
--- SELECT * FROM player_data; 
+SELECT * FROM player_data; 
 
 
 -- #deletes player data

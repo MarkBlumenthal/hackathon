@@ -1,10 +1,15 @@
+
 # import tkinter as tk
 # from tkinter import messagebox, simpledialog
 # from PIL import Image, ImageTk
 # from datetime import datetime
 # import psycopg2
 
+
+
 # #**************************************************************************************************************************************#
+
+
 
 # class FightAntiSemitisimGame:
 
@@ -33,7 +38,16 @@
 #         # Method to update the points display. This can be adjusted based on how you want to show points.
 #         self.output_text.insert(tk.END, f"Current Points: {self.points}\n")
 
+#     def show_final_score(self):
+#     # This method shows the player's total score in a pop-up message box.
+#      messagebox.showinfo("Total Score", f"Your total score is: {self.points}")
+    
+
+
+
 # #************************************************************************************************************************************#
+
+
 
 #     def __init__(self, window):
 
@@ -80,7 +94,11 @@
 #             button = tk.Button(self.game_frame, text=text, command=command)
 #             button.pack(side=tk.LEFT, padx=5, pady=5)
 
+
+
 # #**********************************************************************************************************************#
+
+
 
 #     def close_game(self):
 #      if messagebox.askokcancel("Quit", "Do you really want to quit?"):
@@ -104,7 +122,11 @@
 #         self.demon_slayer_label.pack_forget()
 #         self.create_character_selection()
 
+
+
 # #*************************************************************************************************************************************#
+
+
 
 #     def create_character_selection(self):
 #         character_label = tk.Label(self.window, text="Select Your Character:")
@@ -132,6 +154,8 @@
 #         self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
 #         self.get_question()  # Start the game with the first question
 
+
+
 # #*************************************************************************************************************************************************************#
 
 
@@ -144,7 +168,11 @@
 #     def ask_for_name(self):
 #         return simpledialog.askstring("Player's Name", "Enter your name:")
 
+
+
 # #**********************************************************************************************************************#
+
+
 
 #     def get_question(self):
 #         questions = [
@@ -153,6 +181,7 @@
 #             "The next person is shouting with a sign 'Free Free Palestine'! What do you do?"
 #         ]
 #         if self.question_index >= len(questions):
+#             self.show_final_score()
 #             # If all questions have been asked, show a game over message and reset
 #             messagebox.showinfo("Game Over", "You've responded to all scenarios! Would you like to play again? If you do then select a new character!")
 #             self.question_index = 0  # Reset question index if you want to restart the cycle
@@ -165,7 +194,11 @@
 #     def display_question(self, question):
 #         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
 
+
+
 # #*************************************************************************************************************************************#
+
+
 
 #     def update_player_points(self, points, player_name):
 #      sql = "UPDATE player_data SET points = %s WHERE player_name = %s"
@@ -180,7 +213,11 @@
 #         self.cur.close()
 #         self.conn.close()
 
+
+
 # #*********************************************************************************************************************************************#
+
+
 
 # def main():
 #     window = tk.Tk()
@@ -198,13 +235,20 @@
 
 
 
+
+
+
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 from PIL import Image, ImageTk
 from datetime import datetime
 import psycopg2
 
+
+
 #**************************************************************************************************************************************#
+
+
 
 class FightAntiSemitisimGame:
 
@@ -233,7 +277,16 @@ class FightAntiSemitisimGame:
         # Method to update the points display. This can be adjusted based on how you want to show points.
         self.output_text.insert(tk.END, f"Current Points: {self.points}\n")
 
+    def show_final_score(self):
+    # This method shows the player's total score in a pop-up message box.
+     messagebox.showinfo("Total Score", f"Your total score is: {self.points}")
+    
+
+
+
 #************************************************************************************************************************************#
+
+
 
     def __init__(self, window):
 
@@ -280,7 +333,11 @@ class FightAntiSemitisimGame:
             button = tk.Button(self.game_frame, text=text, command=command)
             button.pack(side=tk.LEFT, padx=5, pady=5)
 
+
+
 #**********************************************************************************************************************#
+
+
 
     def close_game(self):
      if messagebox.askokcancel("Quit", "Do you really want to quit?"):
@@ -304,7 +361,11 @@ class FightAntiSemitisimGame:
         self.demon_slayer_label.pack_forget()
         self.create_character_selection()
 
+
+
 #*************************************************************************************************************************************#
+
+
 
     def create_character_selection(self):
         character_label = tk.Label(self.window, text="Select Your Character:")
@@ -332,6 +393,8 @@ class FightAntiSemitisimGame:
         self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
         self.get_question()  # Start the game with the first question
 
+
+
 #*************************************************************************************************************************************************************#
 
 
@@ -344,7 +407,11 @@ class FightAntiSemitisimGame:
     def ask_for_name(self):
         return simpledialog.askstring("Player's Name", "Enter your name:")
 
+
+
 #**********************************************************************************************************************#
+
+
 
     def get_question(self):
         questions = [
@@ -353,6 +420,7 @@ class FightAntiSemitisimGame:
             "The next person is shouting with a sign 'Free Free Palestine'! What do you do?"
         ]
         if self.question_index >= len(questions):
+            self.show_final_score()
             # If all questions have been asked, show a game over message and reset
             messagebox.showinfo("Game Over", "You've responded to all scenarios! Would you like to play again? If you do then select a new character!")
             self.question_index = 0  # Reset question index if you want to restart the cycle
@@ -365,7 +433,11 @@ class FightAntiSemitisimGame:
     def display_question(self, question):
         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
 
+
+
 #*************************************************************************************************************************************#
+
+
 
     def update_player_points(self, points, player_name):
      sql = "UPDATE player_data SET points = %s WHERE player_name = %s"
@@ -380,7 +452,11 @@ class FightAntiSemitisimGame:
         self.cur.close()
         self.conn.close()
 
+
+
 #*********************************************************************************************************************************************#
+
+
 
 def main():
     window = tk.Tk()

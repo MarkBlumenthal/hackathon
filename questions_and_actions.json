@@ -1,0 +1,29 @@
+{
+    "questions": [
+      {
+        "text": "You encounter a person spreading harmful stereotypes. What do you do?",
+        "actions": {
+          "educate person": "You explain why stereotypes are harmful. The person seems to understand and thanks you.",
+          "ignore person": "You decide to walk away, hoping they'll find enlightenment elsewhere.",
+          "respond with violence": "Violence isn't the answer. This approach doesn't help the situation."
+        }
+      },
+      {
+        "text": "The next person says that Jews should go back to Europe! What do you do?",
+        "actions": {
+          "educate person": "You discuss the history of Jewish people and the concept of home. It's a deep conversation.",
+          "ignore person": "Ignoring hate speech can sometimes be a personal protective measure.",
+          "respond with violence": "Again, responding with violence solves nothing and escalates the situation."
+        }
+      },
+      {
+        "text": "The next person is shouting with a sign 'Free Free Palestine'! What do you do?",
+        "actions": {
+          "educate person": "You engage in a respectful conversation about the complexities of geopolitical issues.",
+          "ignore person": "Sometimes, it's best to avoid confrontations, especially if you feel unsafe.",
+          "respond with violence": "Violence is not the solution. It's important to respect peaceful protests."
+        }
+      }
+    ]
+  }
+  
