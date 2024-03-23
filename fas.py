@@ -74,14 +74,18 @@
 #             button.pack(side=tk.LEFT, padx=5, pady=5)
 
 #     def close_game(self):
-#         if messagebox.askokcancel("Quit", "Do you really want to quit?"):
-#             self.end_time = datetime.now()
-#             duration = self.end_time - self.start_time
-#             self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
-#             self.window.destroy()
-#             self.close_connection()
+#      if messagebox.askokcancel("Quit", "Do you really want to quit?"):
+#         self.end_time = datetime.now()
+#         duration = self.end_time - self.start_time
+#         self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
+#         if hasattr(self, 'player_name'):  # Ensure player_name exists
+#             self.update_player_points(self.player_name, self.points)  # Update points in database
+#         self.window.destroy()
+#         self.close_connection()
+
 
 #     def start_game(self):
+#         self.points = 0
 #         self.start_time = datetime.now()
 #         messagebox.showinfo("Game Started", "Let the educating begin!")
 #         self.welcome_label.pack_forget()
@@ -108,12 +112,15 @@
 #             character_button.pack(side=tk.LEFT, padx=10)
 
 #     def select_character(self, character):
-#         player_name = self.ask_for_name()
-#         if player_name:
-#             self.insert_player_data(player_name, character, self.points)
-#             self.output_text.delete('1.0', tk.END)
-#             self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
-#             self.get_question()  # Start the game with the first question
+#      self.points = 0  # Reset points to zero when a new character is selected
+#      player_name = self.ask_for_name()
+#      if player_name:
+#         self.player_name = player_name  # Store player name as an instance variable
+#         self.insert_player_data(player_name, character, self.points)
+#         self.output_text.delete('1.0', tk.END)
+#         self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
+#         self.get_question()  # Start the game with the first question
+
 
 #     def insert_player_data(self, player_name, character_name, points):
 #         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -143,6 +150,15 @@
 #     def display_question(self, question):
 #         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
 
+#     def update_player_points(self, player_name, points):
+#      sql = "UPDATE player_data SET points = %s WHERE player_name = %s"
+#      print("Updating points for player:", player_name)
+#      print("Old points:", points)
+#      print("Data type of points:", type(points))
+#      self.cur.execute(sql, (player_name, points))
+#      self.conn.commit()
+    
+
 #     def close_connection(self):
 #         self.cur.close()
 #         self.conn.close()
@@ -154,12 +170,6 @@
 
 # if __name__ == "__main__":
 #     main()
-
-
-
-
-
-
 
 
 
@@ -244,12 +254,15 @@ class FightAntiSemitisimGame:
             button.pack(side=tk.LEFT, padx=5, pady=5)
 
     def close_game(self):
-        if messagebox.askokcancel("Quit", "Do you really want to quit?"):
-            self.end_time = datetime.now()
-            duration = self.end_time - self.start_time
-            self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
-            self.window.destroy()
-            self.close_connection()
+     if messagebox.askokcancel("Quit", "Do you really want to quit?"):
+        self.end_time = datetime.now()
+        duration = self.end_time - self.start_time
+        self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
+        if hasattr(self, 'player_name'):  # Ensure player_name exists
+            self.update_player_points(self.player_name, self.points)  # Update points in database
+        self.window.destroy()
+        self.close_connection()
+
 
     def start_game(self):
         self.points = 0
@@ -279,12 +292,15 @@ class FightAntiSemitisimGame:
             character_button.pack(side=tk.LEFT, padx=10)
 
     def select_character(self, character):
-        player_name = self.ask_for_name()
-        if player_name:
-            self.insert_player_data(player_name, character, self.points)
-            self.output_text.delete('1.0', tk.END)
-            self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
-            self.get_question()  # Start the game with the first question
+     self.points = 0  # Reset points to zero when a new character is selected
+     player_name = self.ask_for_name()
+     if player_name:
+        self.player_name = player_name  # Store player name as an instance variable
+        self.insert_player_data(player_name, character, self.points)
+        self.output_text.delete('1.0', tk.END)
+        self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
+        self.get_question()  # Start the game with the first question
+
 
     def insert_player_data(self, player_name, character_name, points):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -314,6 +330,15 @@ class FightAntiSemitisimGame:
     def display_question(self, question):
         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
 
+    def update_player_points(self, player_name, points):
+     sql = "UPDATE player_data SET points = %s WHERE player_name = %s"
+     print("Updating points for player:", player_name)
+     print("Old points:", points)
+     print("Data type of points:", type(points))
+     self.cur.execute(sql, (player_name, points))
+     self.conn.commit()
+    
+
     def close_connection(self):
         self.cur.close()
         self.conn.close()
@@ -325,5 +350,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 

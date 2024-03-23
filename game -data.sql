@@ -23,5 +23,7 @@
 
 SELECT * FROM player_data;
 
+-- DELETE FROM player_data
+-- WHERE id >= 3 AND id <= 113;
 
 
