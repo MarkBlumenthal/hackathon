@@ -4,29 +4,36 @@
 # from datetime import datetime
 # import psycopg2
 
+# #**************************************************************************************************************************************#
+
 # class FightAntiSemitisimGame:
 
 #     def educate_person(self):
 #         self.output_text.insert(tk.END, "You educate the person.\n")
 #         self.points += 10  # Add points for educating
 #         self.update_points_display()  # Update the points display
+#         self.update_player_points(self.points, self.player_name)
 #         self.get_question()
 
 #     def ignore_person(self):
 #         self.output_text.insert(tk.END, "You ignore the person and walk away!\n")
 #         self.points += 5  # Add points for ignoring
 #         self.update_points_display()  # Update the points display
+#         self.update_player_points(self.points, self.player_name)
 #         self.get_question()
 
 #     def respond_with_violence(self):
 #         self.output_text.insert(tk.END, "You punch the person in the face\n")
 #         self.points += 0  # No points for violence
 #         self.update_points_display()  # Update the points display
+#         self.update_player_points(self.points, self.player_name)
 #         self.get_question()  
 
 #     def update_points_display(self):
 #         # Method to update the points display. This can be adjusted based on how you want to show points.
 #         self.output_text.insert(tk.END, f"Current Points: {self.points}\n")
+
+# #************************************************************************************************************************************#
 
 #     def __init__(self, window):
 
@@ -73,13 +80,15 @@
 #             button = tk.Button(self.game_frame, text=text, command=command)
 #             button.pack(side=tk.LEFT, padx=5, pady=5)
 
+# #**********************************************************************************************************************#
+
 #     def close_game(self):
 #      if messagebox.askokcancel("Quit", "Do you really want to quit?"):
 #         self.end_time = datetime.now()
 #         duration = self.end_time - self.start_time
 #         self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
 #         if hasattr(self, 'player_name'):  # Ensure player_name exists
-#             self.update_player_points(self.player_name, self.points)  # Update points in database
+#             self.update_player_points(self.points, self.player_name)  # Update points in database
 #         self.window.destroy()
 #         self.close_connection()
 
@@ -94,6 +103,8 @@
 #         self.no_button.pack_forget()
 #         self.demon_slayer_label.pack_forget()
 #         self.create_character_selection()
+
+# #*************************************************************************************************************************************#
 
 #     def create_character_selection(self):
 #         character_label = tk.Label(self.window, text="Select Your Character:")
@@ -121,6 +132,8 @@
 #         self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
 #         self.get_question()  # Start the game with the first question
 
+# #*************************************************************************************************************************************************************#
+
 
 #     def insert_player_data(self, player_name, character_name, points):
 #         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -130,6 +143,8 @@
 
 #     def ask_for_name(self):
 #         return simpledialog.askstring("Player's Name", "Enter your name:")
+
+# #**********************************************************************************************************************#
 
 #     def get_question(self):
 #         questions = [
@@ -150,18 +165,22 @@
 #     def display_question(self, question):
 #         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
 
-#     def update_player_points(self, player_name, points):
+# #*************************************************************************************************************************************#
+
+#     def update_player_points(self, points, player_name):
 #      sql = "UPDATE player_data SET points = %s WHERE player_name = %s"
 #      print("Updating points for player:", player_name)
 #      print("Old points:", points)
 #      print("Data type of points:", type(points))
-#      self.cur.execute(sql, (player_name, points))
+#      self.cur.execute(sql, (int(points), player_name))
 #      self.conn.commit()
     
 
 #     def close_connection(self):
 #         self.cur.close()
 #         self.conn.close()
+
+# #*********************************************************************************************************************************************#
 
 # def main():
 #     window = tk.Tk()
@@ -178,11 +197,14 @@
 
 
 
+
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 from PIL import Image, ImageTk
 from datetime import datetime
 import psycopg2
+
+#**************************************************************************************************************************************#
 
 class FightAntiSemitisimGame:
 
@@ -190,23 +212,28 @@ class FightAntiSemitisimGame:
         self.output_text.insert(tk.END, "You educate the person.\n")
         self.points += 10  # Add points for educating
         self.update_points_display()  # Update the points display
+        self.update_player_points(self.points, self.player_name)
         self.get_question()
 
     def ignore_person(self):
         self.output_text.insert(tk.END, "You ignore the person and walk away!\n")
         self.points += 5  # Add points for ignoring
         self.update_points_display()  # Update the points display
+        self.update_player_points(self.points, self.player_name)
         self.get_question()
 
     def respond_with_violence(self):
         self.output_text.insert(tk.END, "You punch the person in the face\n")
         self.points += 0  # No points for violence
         self.update_points_display()  # Update the points display
+        self.update_player_points(self.points, self.player_name)
         self.get_question()  
 
     def update_points_display(self):
         # Method to update the points display. This can be adjusted based on how you want to show points.
         self.output_text.insert(tk.END, f"Current Points: {self.points}\n")
+
+#************************************************************************************************************************************#
 
     def __init__(self, window):
 
@@ -253,13 +280,15 @@ class FightAntiSemitisimGame:
             button = tk.Button(self.game_frame, text=text, command=command)
             button.pack(side=tk.LEFT, padx=5, pady=5)
 
+#**********************************************************************************************************************#
+
     def close_game(self):
      if messagebox.askokcancel("Quit", "Do you really want to quit?"):
         self.end_time = datetime.now()
         duration = self.end_time - self.start_time
         self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
         if hasattr(self, 'player_name'):  # Ensure player_name exists
-            self.update_player_points(self.player_name, self.points)  # Update points in database
+            self.update_player_points(self.points, self.player_name)  # Update points in database
         self.window.destroy()
         self.close_connection()
 
@@ -274,6 +303,8 @@ class FightAntiSemitisimGame:
         self.no_button.pack_forget()
         self.demon_slayer_label.pack_forget()
         self.create_character_selection()
+
+#*************************************************************************************************************************************#
 
     def create_character_selection(self):
         character_label = tk.Label(self.window, text="Select Your Character:")
@@ -301,6 +332,8 @@ class FightAntiSemitisimGame:
         self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
         self.get_question()  # Start the game with the first question
 
+#*************************************************************************************************************************************************************#
+
 
     def insert_player_data(self, player_name, character_name, points):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -310,6 +343,8 @@ class FightAntiSemitisimGame:
 
     def ask_for_name(self):
         return simpledialog.askstring("Player's Name", "Enter your name:")
+
+#**********************************************************************************************************************#
 
     def get_question(self):
         questions = [
@@ -330,18 +365,22 @@ class FightAntiSemitisimGame:
     def display_question(self, question):
         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
 
-    def update_player_points(self, player_name, points):
+#*************************************************************************************************************************************#
+
+    def update_player_points(self, points, player_name):
      sql = "UPDATE player_data SET points = %s WHERE player_name = %s"
      print("Updating points for player:", player_name)
      print("Old points:", points)
      print("Data type of points:", type(points))
-     self.cur.execute(sql, (player_name, points))
+     self.cur.execute(sql, (int(points), player_name))
      self.conn.commit()
     
 
     def close_connection(self):
         self.cur.close()
         self.conn.close()
+
+#*********************************************************************************************************************************************#
 
 def main():
     window = tk.Tk()
@@ -350,4 +389,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

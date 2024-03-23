@@ -1,7 +1,3 @@
--- Database: Demon Slayer
-
--- DROP DATABASE IF EXISTS "Demon Slayer";
-
 -- CREATE DATABASE "Demon Slayer"
 --     WITH
 --     OWNER = postgres
@@ -16,14 +12,34 @@
 
 -- CREATE TABLE player_data (
 --     id SERIAL PRIMARY KEY,
---     player_name VARCHAR(255),
+--     player_name VARCHAR(255) NOT NULL,
 --     character_name VARCHAR(255),
---     play_time TIMESTAMP
+--     play_time TIMESTAMP NOT NULL,
+--     points INT DEFAULT 0
 -- );
 
-SELECT * FROM player_data;
 
+-- #selects the entire table
+-- SELECT * FROM player_data; 
+
+
+-- #deletes player data
 -- DELETE FROM player_data
--- WHERE id >= 3 AND id <= 113;
+-- WHERE id >= 127 AND id <= 144;
+
+-- #selects the most popular character used
+-- SELECT character_name, COUNT(*) AS selection_count
+-- FROM player_data
+-- GROUP BY character_name
+-- ORDER BY selection_count DESC
+-- LIMIT 3;
+
+
+-- #selects the highest scoring players
+-- SELECT player_name, points
+-- FROM player_data
+-- ORDER BY points DESC
+-- LIMIT 10;
+
 
 
