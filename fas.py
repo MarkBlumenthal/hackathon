@@ -56,6 +56,11 @@ class FightAntiSemitisimGame:
 
     def show_final_score(self):
     # This method shows the player's total score in a pop-up message box.
+     
+
+#*******************************************************************************************************************************************************************#
+
+
      messagebox.showinfo("Total Score", f"Your total score is: {self.points}")
       # Automatically show the leaderboard after displaying the final score
      self.show_leaderboard()  # or self.show_leaderboard()
