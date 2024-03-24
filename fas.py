@@ -55,6 +55,21 @@
 #     def show_final_score(self):
 #     # This method shows the player's total score in a pop-up message box.
 #      messagebox.showinfo("Total Score", f"Your total score is: {self.points}")
+#       # Automatically show the leaderboard after displaying the final score
+#      self.show_leaderboard()  # or self.show_leaderboard()
+
+
+#     def fetch_top_players(self):
+#      self.cur.execute("SELECT player_name, points FROM player_data ORDER BY points DESC LIMIT 10")
+#      top_players = self.cur.fetchall()  # Fetches the top 10 players
+#      return top_players
+    
+#     def show_leaderboard(self):
+#      top_players = self.fetch_top_players()
+#      leaderboard = "\n".join([f"{player[0]}: {player[1]} points" for player in top_players])
+#      messagebox.showinfo("Top 10 Players", f"Leaderboard:\n{leaderboard}")
+
+
     
 
 
@@ -69,6 +84,7 @@
 
 #         self.window = window
 #         self.window.title("Welcome to Fight Anti-Semitisim")
+#         self.window.configure(background='lightblue')  # Sets the background color of the window
 
 #         self.conn = psycopg2.connect(dbname="Hackathon-1", user="postgres", password="arsenal_1", host="localhost") #info required to connect to the psql database
 #         self.cur = self.conn.cursor()
@@ -77,9 +93,9 @@
 #         self.end_time = None
 #         self.question_index = 0  # Initialize question index to start from the beggining
 
-#         self.welcome_label = tk.Label(window, text="Welcome To Fight Anti-Semitisim!")
+#         self.welcome_label = tk.Label(window, text="Welcome To Fight Anti-Semitisim", bg='lightblue')
 #         self.welcome_label.pack()
-#         self.question_label = tk.Label(window, text="Lets Change people's views in this world?") #inserts the labels into the opening screen
+#         self.question_label = tk.Label(window, text="Lets Change people's views in this world", bg='lightblue') #inserts the labels into the opening screen
 #         self.question_label.pack()
 
 #         self.yes_button = tk.Button(window, text="Yes", command=self.start_game) #creates a new button in the widget
@@ -105,7 +121,7 @@
 #         ]
 
 #         for text, command in self.actions: #selects the action when a button is pushed
-#             button = tk.Button(self.game_frame, text=text, command=command) #creates the buttons for actions
+#             button = tk.Button(self.game_frame, text=text, command=command, bg='lightblue') #creates the buttons for actions
 #             button.pack(side=tk.LEFT, padx=5, pady=5) #where the buttons are displayed
 
 
@@ -143,12 +159,12 @@
 
 
 #     def create_character_selection(self):
-#         character_label = tk.Label(self.window, text="Select Your Character:")
+#         character_label = tk.Label(self.window, text="Select Your Character:", bg='lightblue')
 #         character_label.pack()
 
-#         characters = [("images/Rabbi.jpeg", "Character 1"), ("images/soldier.jpeg", "Character 2"), ("images/Israeli girl.png", "Character 3")]
+#         characters = [("images/dwight.jpeg", "Character 1"), ("images/EricCartman.png", "Character 2"), ("images/Yoda.png", "Character 3")]
 
-#         character_frame = tk.Frame(self.window)
+#         character_frame = tk.Frame(self.window, bg='lightblue')
 #         character_frame.pack()
 
 #         for image_path, character_name in characters:
@@ -241,7 +257,9 @@
 #     window.mainloop()
 
 # if __name__ == "__main__":
-#     main()
+#     main()    
+
+
 
 
 
@@ -313,6 +331,21 @@ class FightAntiSemitisimGame:
     def show_final_score(self):
     # This method shows the player's total score in a pop-up message box.
      messagebox.showinfo("Total Score", f"Your total score is: {self.points}")
+      # Automatically show the leaderboard after displaying the final score
+     self.show_leaderboard()  # or self.show_leaderboard()
+
+
+    def fetch_top_players(self):
+     self.cur.execute("SELECT player_name, points FROM player_data ORDER BY points DESC LIMIT 10")
+     top_players = self.cur.fetchall()  # Fetches the top 10 players
+     return top_players
+    
+    def show_leaderboard(self):
+     top_players = self.fetch_top_players()
+     leaderboard = "\n".join([f"{player[0]}: {player[1]} points" for player in top_players])
+     messagebox.showinfo("Top 10 Players", f"Leaderboard:\n{leaderboard}")
+
+
     
 
 
@@ -336,9 +369,9 @@ class FightAntiSemitisimGame:
         self.end_time = None
         self.question_index = 0  # Initialize question index to start from the beggining
 
-        self.welcome_label = tk.Label(window, text="Welcome To Fight Anti-Semitisim!")
+        self.welcome_label = tk.Label(window, text="Welcome To Fight Anti-Semitisim", bg='lightblue')
         self.welcome_label.pack()
-        self.question_label = tk.Label(window, text="Lets Change people's views in this world?") #inserts the labels into the opening screen
+        self.question_label = tk.Label(window, text="Lets Change people's views in this world", bg='lightblue') #inserts the labels into the opening screen
         self.question_label.pack()
 
         self.yes_button = tk.Button(window, text="Yes", command=self.start_game) #creates a new button in the widget
@@ -500,4 +533,4 @@ def main():
     window.mainloop()
 
 if __name__ == "__main__":
-    main()
+    main()    
