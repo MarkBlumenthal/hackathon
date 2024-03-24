@@ -1,262 +1,13 @@
-# import tkinter as tk
-# from tkinter import messagebox, simpledialog
-# from PIL import Image, ImageTk
-# from datetime import datetime
-# import psycopg2
-# import json
+#This is a text based style, Python game designed to help educate people on how to deal with anti-semitisim.
+#it uses the API tkinter to help manage the GUI toolkit in python. It also incoporates the use of Postgresql,
+#by sending all game data to a psql database which can retrieve player scores etc.
+#All questions and answers are stored in a json file which allows easy manipulation and adding and removing,
+#scenarios and responses.
 
+#Before running the code, make sure you have: tkinter, json and psycopg2 installed in your vscode.
 
 
-# #**************************************************************************************************************************************#
-
-
-
-# class FightAntiSemitisimGame:
-
-#     def educate_person(self):
-#         outcome = self.current_actions['educate person']
-#         self.output_text.insert(tk.END, outcome + "\n")
-#         self.points += 10  # Add points for educating
-#         self.update_points_display()  # Update the points display
-#         self.update_player_points(self.points, self.player_name)
-#         self.get_question()
-
-#     def ignore_person(self):
-#         outcome = self.current_actions['ignore person']
-#         self.output_text.insert(tk.END, outcome + "\n")
-#         self.points += 5  # Add points for ignoring
-#         self.update_points_display()  # Update the points display
-#         self.update_player_points(self.points, self.player_name)
-#         self.get_question()
-
-#     def respond_with_violence(self):
-#         outcome = self.current_actions['respond with violence']
-#         self.output_text.insert(tk.END, outcome + "\n")
-#         self.points += 0  # No points for violence
-#         self.update_points_display()  # Update the points display
-#         self.update_player_points(self.points, self.player_name)
-#         self.get_question()  
-
-#     def update_points_display(self):
-#         # Method to update the points display. This can be adjusted based on how you want to show points.
-#         self.output_text.insert(tk.END, f"Current Points: {self.points}\n")
-
-#     def show_final_score(self):
-#     # This method shows the player's total score in a pop-up message box.
-#      messagebox.showinfo("Total Score", f"Your total score is: {self.points}")
-    
-
-
-
-# #************************************************************************************************************************************#
-
-
-
-#     def __init__(self, window):
-
-#         self.points = 0 
-
-#         self.window = window
-#         self.window.title("Welcome to Fight Anti-Semitisim")
-
-#         self.conn = psycopg2.connect(dbname="Hackathon-1", user="postgres", password="arsenal_1", host="localhost")
-#         self.cur = self.conn.cursor()
-
-#         self.start_time = None
-#         self.end_time = None
-#         self.question_index = 0  # Initialize question index
-
-#         self.welcome_label = tk.Label(window, text="Welcome To Fight Anti-Semitisim!")
-#         self.welcome_label.pack()
-#         self.question_label = tk.Label(window, text="Lets Change people's views in this world?")
-#         self.question_label.pack()
-
-#         self.yes_button = tk.Button(window, text="Yes", command=self.start_game)
-#         self.yes_button.pack(side=tk.LEFT, padx=10)
-#         self.no_button = tk.Button(window, text="No", command=self.close_game)
-#         self.no_button.pack(side=tk.RIGHT, padx=10)
-
-#         self.demon_slayer_image = Image.open("images/fightantisemitisim.png").resize((300, 150))
-#         self.demon_slayer_photo = ImageTk.PhotoImage(self.demon_slayer_image)
-#         self.demon_slayer_label = tk.Label(window, image=self.demon_slayer_photo)
-#         self.demon_slayer_label.pack()
-
-#         self.game_frame = tk.Frame(window)
-#         self.game_frame.pack(pady=20)
-
-#         self.output_text = tk.Text(self.game_frame, width=140, height=20)
-#         self.output_text.pack()
-
-#         self.actions = [
-#             ("educate person", self.educate_person), 
-#             ("ignore person", self.ignore_person), 
-#             ("respond with violence", self.respond_with_violence)
-#         ]
-
-#         for text, command in self.actions:
-#             button = tk.Button(self.game_frame, text=text, command=command)
-#             button.pack(side=tk.LEFT, padx=5, pady=5)
-
-
-
-# #**********************************************************************************************************************#
-
-
-
-#     def close_game(self):
-#      if messagebox.askokcancel("Quit", "Do you really want to quit?"):
-#         self.end_time = datetime.now()
-#         duration = self.end_time - self.start_time
-#         self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
-#         if hasattr(self, 'player_name'):  # Ensure player_name exists
-#             self.update_player_points(self.points, self.player_name)  # Update points in database
-#         self.window.destroy()
-#         self.close_connection()
-
-
-#     def start_game(self):
-#         self.points = 0
-#         self.start_time = datetime.now()
-#         messagebox.showinfo("Game Started", "Let the educating begin!")
-#         self.welcome_label.pack_forget()
-#         self.question_label.pack_forget()
-#         self.yes_button.pack_forget()
-#         self.no_button.pack_forget()
-#         self.demon_slayer_label.pack_forget()
-#         self.create_character_selection()
-
-
-
-# #*************************************************************************************************************************************#
-
-
-
-#     def create_character_selection(self):
-#         character_label = tk.Label(self.window, text="Select Your Character:")
-#         character_label.pack()
-
-#         characters = [("images/Rabbi.jpeg", "Character 1"), ("images/soldier.jpeg", "Character 2"), ("images/Israeli girl.png", "Character 3")]
-
-#         character_frame = tk.Frame(self.window)
-#         character_frame.pack()
-
-#         for image_path, character_name in characters:
-#             character_image = Image.open(image_path).resize((100, 100))
-#             character_photo = ImageTk.PhotoImage(character_image)
-#             character_button = tk.Button(character_frame, image=character_photo, command=lambda name=character_name: self.select_character(name))
-#             character_button.photo = character_photo
-#             character_button.pack(side=tk.LEFT, padx=10)
-
-#     def select_character(self, character):
-#      self.points = 0  # Reset points to zero when a new character is selected
-#      player_name = self.ask_for_name()
-#      if player_name:
-#         self.player_name = player_name  # Store player name as an instance variable
-#         self.insert_player_data(player_name, character, self.points)
-#         self.output_text.delete('1.0', tk.END)
-#         self.output_text.insert(tk.END, f"Player Name: {player_name}\nSelected character: {character}\n")
-#         self.get_question()  # Start the game with the first question
-
-
-
-# #*************************************************************************************************************************************************************#
-
-
-#     def insert_player_data(self, player_name, character_name, points):
-#         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-#         sql = "INSERT INTO player_data (player_name, character_name, play_time, points) VALUES (%s, %s, %s, %s)"
-#         self.cur.execute(sql, (player_name, character_name, timestamp, points))
-#         self.conn.commit()
-
-#     def ask_for_name(self):
-#         return simpledialog.askstring("Player's Name", "Enter your name:")
-
-
-
-# #**********************************************************************************************************************#
-
-
-
-#     def get_question(self):
-       
-#        with open('questions.json', 'r') as file:
-#         data = json.load(file)
-#         questions = data["questions"]
-
-#         print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
-        
-#         if self.question_index >= len(questions):
-#             self.show_final_score()
-#             # If all questions have been asked, show a game over message and reset
-#             messagebox.showinfo("Game Over", "You've responded to all scenarios! Would you like to play again? If you do then select a new character!")
-#             self.question_index = 0
-#             print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line  # Reset question index if you want to restart the cycle
-#             return
-        
-#         self.current_actions = questions[self.question_index]["actions"]
-#         selected_question = questions[self.question_index]["text"]
-#         self.display_question(selected_question)
-#         self.question_index += 1
-#         print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
-
-#     def display_question(self, question):
-#         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
-
-
-
-# #*************************************************************************************************************************************#
-
-
-
-#     def update_player_points(self, points, player_name):
-#      sql = "UPDATE player_data SET points = %s WHERE player_name = %s"
-#      print("Updating points for player:", player_name)
-#      print("Old points:", points)
-#      print("Data type of points:", type(points))
-#      self.cur.execute(sql, (int(points), player_name))
-#      self.conn.commit()
-    
-
-#     def close_connection(self):
-#         self.cur.close()
-#         self.conn.close()
-
-
-
-# #*********************************************************************************************************************************************#
-
-
-
-# def main():
-#     window = tk.Tk()
-#     FightAntiSemitisimGame(window)
-#     window.mainloop()
-
-# if __name__ == "__main__":
-#     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#********************************************************************************************************************************#
 
 import tkinter as tk
 from tkinter import messagebox, simpledialog
@@ -270,16 +21,16 @@ import json
 #**************************************************************************************************************************************#
 
 
-
+#create the object of FightAntiSemitisimGame
 class FightAntiSemitisimGame:
 
     def educate_person(self):
-        outcome = self.current_actions['educate person']
-        self.output_text.insert(tk.END, outcome + "\n")
+        outcome = self.current_actions['educate person'] #retrieves the outcome when a player selects"educate person"
+        self.output_text.insert(tk.END, outcome + "\n") #inserts the outcome into the widget and makes sure the response is printed on an new line.
         self.points += 10  # Add points for educating
         self.update_points_display()  # Update the points display
-        self.update_player_points(self.points, self.player_name)
-        self.get_question()
+        self.update_player_points(self.points, self.player_name) #updates the points in Postgresql
+        self.get_question() #calls the game to move on to the next question
 
     def ignore_person(self):
         outcome = self.current_actions['ignore person']
@@ -298,7 +49,7 @@ class FightAntiSemitisimGame:
         self.get_question()  
 
     def update_points_display(self):
-        # Method to update the points display. This can be adjusted based on how you want to show points.
+        # Method to update the points display. 
         self.output_text.insert(tk.END, f"Current Points: {self.points}\n")
 
     def show_final_score(self):
@@ -319,43 +70,43 @@ class FightAntiSemitisimGame:
         self.window = window
         self.window.title("Welcome to Fight Anti-Semitisim")
 
-        self.conn = psycopg2.connect(dbname="Hackathon-1", user="postgres", password="arsenal_1", host="localhost")
+        self.conn = psycopg2.connect(dbname="Hackathon-1", user="postgres", password="arsenal_1", host="localhost") #info required to connect to the psql database
         self.cur = self.conn.cursor()
 
         self.start_time = None
         self.end_time = None
-        self.question_index = 0  # Initialize question index
+        self.question_index = 0  # Initialize question index to start from the beggining
 
         self.welcome_label = tk.Label(window, text="Welcome To Fight Anti-Semitisim!")
         self.welcome_label.pack()
-        self.question_label = tk.Label(window, text="Lets Change people's views in this world?")
+        self.question_label = tk.Label(window, text="Lets Change people's views in this world?") #inserts the labels into the opening screen
         self.question_label.pack()
 
-        self.yes_button = tk.Button(window, text="Yes", command=self.start_game)
+        self.yes_button = tk.Button(window, text="Yes", command=self.start_game) #creates a new button in the widget
         self.yes_button.pack(side=tk.LEFT, padx=10)
         self.no_button = tk.Button(window, text="No", command=self.close_game)
         self.no_button.pack(side=tk.RIGHT, padx=10)
 
-        self.demon_slayer_image = Image.open("images/fightantisemitisim.png").resize((300, 150))
+        self.demon_slayer_image = Image.open("images/fightantisemitisim.png").resize((300, 150)) #sets the homescreen picture in the widget
         self.demon_slayer_photo = ImageTk.PhotoImage(self.demon_slayer_image)
         self.demon_slayer_label = tk.Label(window, image=self.demon_slayer_photo)
         self.demon_slayer_label.pack()
 
-        self.game_frame = tk.Frame(window)
+        self.game_frame = tk.Frame(window) #main window widget
         self.game_frame.pack(pady=20)
 
-        self.output_text = tk.Text(self.game_frame, width=140, height=20)
+        self.output_text = tk.Text(self.game_frame, width=140, height=20) #text window widget
         self.output_text.pack()
 
         self.actions = [
-            ("educate person", self.educate_person), 
-            ("ignore person", self.ignore_person), 
+            ("educate person", self.educate_person), #[]=list ()=tuple within a list, note that the methods are not being called here. 
+            ("ignore person", self.ignore_person),   # this is a stored reference to the method in the json file
             ("respond with violence", self.respond_with_violence)
         ]
 
-        for text, command in self.actions:
-            button = tk.Button(self.game_frame, text=text, command=command)
-            button.pack(side=tk.LEFT, padx=5, pady=5)
+        for text, command in self.actions: #selects the action when a button is pushed
+            button = tk.Button(self.game_frame, text=text, command=command) #creates the buttons for actions
+            button.pack(side=tk.LEFT, padx=5, pady=5) #where the buttons are displayed
 
 
 
@@ -364,12 +115,12 @@ class FightAntiSemitisimGame:
 
 
     def close_game(self):
-     if messagebox.askokcancel("Quit", "Do you really want to quit?"):
+     if messagebox.askokcancel("Quit", "Do you really want to quit?"): #asks the user if they want to quit. returns true if they say ok
         self.end_time = datetime.now()
-        duration = self.end_time - self.start_time
+        duration = self.end_time - self.start_time #subtracts start time from end time
         self.output_text.insert(tk.END, f"Game Duration: {duration}\n")
-        if hasattr(self, 'player_name'):  # Ensure player_name exists
-            self.update_player_points(self.points, self.player_name)  # Update points in database
+        if hasattr(self, 'player_name'):  #This is a safety check to ensure that the game has a player name set before trying to update the database.
+            self.update_player_points(self.points, self.player_name)  # Update points in psql database
         self.window.destroy()
         self.close_connection()
 
@@ -419,12 +170,12 @@ class FightAntiSemitisimGame:
 
 
 
-#*************************************************************************************************************************************************************#
+#********************************************************************************************************************************************************************************************************#
 
-
+    #inserts all player data into the psql database
     def insert_player_data(self, player_name, character_name, points):
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        sql = "INSERT INTO player_data (player_name, character_name, play_time, points) VALUES (%s, %s, %s, %s)"
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S") #formats date and time into a string
+        sql = "INSERT INTO player_data (player_name, character_name, play_time, points) VALUES (%s, %s, %s, %s)" #inserts data into psql. %s are placeholders used to seperate sql code from data values
         self.cur.execute(sql, (player_name, character_name, timestamp, points))
         self.conn.commit()
 
@@ -433,38 +184,35 @@ class FightAntiSemitisimGame:
 
 
 
-#**********************************************************************************************************************#
+#***********************************************************************************************************************************************************************************************************#
 
 
 
     def get_question(self):
        
-       with open('questions.json', 'r') as file:
-        data = json.load(file)
-        questions = data["questions"]
-
-        print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
+       with open('questions.json', 'r') as file: #opens the json file
+        data = json.load(file) #moves the file from json into a python dictionary
+        questions = data["questions"] #accesess the value associated with the key "questions"
         
-        if self.question_index >= len(questions):
+        if self.question_index >= len(questions): #This line checks if the current question has reached or exceeded the total number of questions available. "len" calculates total number of questions
             self.show_final_score()
             # If all questions have been asked, show a game over message and reset
             messagebox.showinfo("Game Over", "You've responded to all scenarios! Would you like to play again? If you do then select a new character!")
             self.question_index = 0
-            print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line  # Reset question index if you want to restart the cycle
             return
         
-        self.current_actions = questions[self.question_index]["actions"]
-        selected_question = questions[self.question_index]["text"]
+        self.current_actions = questions[self.question_index]["actions"] #retireves action associated with current questions
+        selected_question = questions[self.question_index]["text"] # extracts text of current question
         self.display_question(selected_question)
-        self.question_index += 1
-        print(f"Current question index: {self.question_index}, Total questions: {len(questions)}")  # Debugging line
+        self.question_index += 1 #this increments the system to prepare the next question
+        
 
     def display_question(self, question):
         self.output_text.insert(tk.END, question + "\n\nYour answer: ")
 
 
 
-#*************************************************************************************************************************************#
+#*****************************************************************************************************************************************************************************************************************#
 
 
 
