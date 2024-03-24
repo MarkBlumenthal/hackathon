@@ -272,8 +272,7 @@
 
 
 
-
-
+   
 #This is a text based style, Python game designed to help educate people on how to deal with anti-semitisim.
 #it uses the API tkinter to help manage the GUI toolkit in python. It also incoporates the use of Postgresql,
 #by sending all game data to a psql database which can retrieve player scores etc.
@@ -291,6 +290,8 @@ from PIL import Image, ImageTk
 from datetime import datetime
 import psycopg2
 import json
+from tkinter import Toplevel, ttk  # ttk is needed for the Treeview widget
+
 
 
 
@@ -341,9 +342,30 @@ class FightAntiSemitisimGame:
      return top_players
     
     def show_leaderboard(self):
-     top_players = self.fetch_top_players()
-     leaderboard = "\n".join([f"{player[0]}: {player[1]} points" for player in top_players])
-     messagebox.showinfo("Top 10 Players", f"Leaderboard:\n{leaderboard}")
+      top_players = self.fetch_top_players()
+      # Create a new Toplevel window
+      leaderboard_window = Toplevel(self.window)
+      leaderboard_window.title("Leaderboard")
+    
+    # Create a Treeview widget
+      leaderboard_tree = ttk.Treeview(leaderboard_window, columns=('Rank', 'Name', 'Points'), show='headings', height=10)
+      leaderboard_tree.pack(side='top', fill='x')
+    
+    # Define the columns
+      leaderboard_tree.heading('Rank', text='Rank')
+      leaderboard_tree.heading('Name', text='Name')
+      leaderboard_tree.heading('Points', text='Points')
+    
+    # Adjust the columns' width to the content
+      leaderboard_tree.column('Rank', width=50, anchor='center')
+      leaderboard_tree.column('Name', width=150, anchor='center')
+      leaderboard_tree.column('Points', width=100, anchor='center')
+    
+    # Insert the player data into the Treeview
+      for index, player in enumerate(top_players, start=1):
+       leaderboard_tree.insert("", 'end', values=(index, player[0], player[1]))
+
+
 
 
     
@@ -533,4 +555,4 @@ def main():
     window.mainloop()
 
 if __name__ == "__main__":
-    main()    
+    main() 
