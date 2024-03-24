@@ -15,6 +15,7 @@ from PIL import Image, ImageTk
 from datetime import datetime
 import psycopg2
 import json
+from config import DATABASE
 from tkinter import Toplevel, ttk  # ttk is needed for the Treeview widget
 
 
@@ -114,7 +115,10 @@ class FightAntiSemitisimGame:
         self.window.title("Welcome to Fight Anti-Semitisim")
         self.window.configure(background='lightblue')  # Sets the background color of the window
 
-        self.conn = psycopg2.connect(dbname="Hackathon-1", user="postgres", password="arsenal_1", host="localhost") #info required to connect to the psql database
+        self.conn = psycopg2.connect(dbname=DATABASE["dbname"],
+                             user=DATABASE["user"],
+                             password=DATABASE["password"],
+                             host=DATABASE["host"])
         self.cur = self.conn.cursor()
 
         self.start_time = None
@@ -284,13 +288,7 @@ def main():
     window.mainloop()
 
 if __name__ == "__main__":
-    main()   
-
-
-
-
-
-
+    main() 
 
 
 
