@@ -364,7 +364,7 @@ class FightAntiSemitisimGame:
         ]
 
         for text, command in self.actions: #selects the action when a button is pushed
-            button = tk.Button(self.game_frame, text=text, command=command) #creates the buttons for actions
+            button = tk.Button(self.game_frame, text=text, command=command, bg='lightblue') #creates the buttons for actions
             button.pack(side=tk.LEFT, padx=5, pady=5) #where the buttons are displayed
 
 
@@ -402,12 +402,12 @@ class FightAntiSemitisimGame:
 
 
     def create_character_selection(self):
-        character_label = tk.Label(self.window, text="Select Your Character:")
+        character_label = tk.Label(self.window, text="Select Your Character:", bg='lightblue')
         character_label.pack()
 
-        characters = [("images/Rabbi.jpeg", "Character 1"), ("images/soldier.jpeg", "Character 2"), ("images/Israeli girl.png", "Character 3")]
+        characters = [("images/dwight.jpeg", "Character 1"), ("images/EricCartman.png", "Character 2"), ("images/Yoda.png", "Character 3")]
 
-        character_frame = tk.Frame(self.window)
+        character_frame = tk.Frame(self.window, bg='lightblue')
         character_frame.pack()
 
         for image_path, character_name in characters:
